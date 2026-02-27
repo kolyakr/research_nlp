@@ -9,7 +9,7 @@ class TextLoader():
     def __init__(self, filename, batch_size, num_steps):
         self.raw_text = self._read_file(filename)
         tokenizer = Tokenizer()
-        self.tokens = tokenizer.split_by_word(self._preprocess(self.raw_text))
+        self.tokens = tokenizer.split_by_character(self._preprocess(self.raw_text))
         self.vocab = Vocabulary(self.tokens)
         self.corpus = self.vocab[self.tokens]
         self.vocab_size = len(self.vocab.stats)
@@ -49,13 +49,3 @@ class TextLoader():
                     [item[1] for item in batch] 
                 )
                 batch = [] 
-        
-        if len(batch) > 0:
-            yield ( 
-                    [item[0] for item in batch], 
-                    [item[1] for item in batch] 
-                )
-    
-    
-
-    

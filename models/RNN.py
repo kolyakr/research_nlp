@@ -1,6 +1,5 @@
 import torch
 from torch import nn
-import torch.nn.functional as F
 
 class RNN(nn.Module):
     def __init__(self, input_size, hidden_size, sigma=0.01):
@@ -41,7 +40,7 @@ class RNN(nn.Module):
         outputs = []
 
         for t in range(X.shape[0]):
-            state = F.tanh(
+            state = torch.tanh(
                 torch.matmul(X[t], self.W_xh) + torch.matmul(state, self.W_hh) + self.b_h
             )
             outputs.append(state)
